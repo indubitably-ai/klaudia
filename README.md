@@ -10,7 +10,8 @@ This fork is optimized for running Klaudia from source, iterating on the CLI qui
 
 - Bun installed
 - Node.js installed
-- Codex CLI installed and able to sign in with your ChatGPT plan
+- A local browser available for the ChatGPT/Codex sign-in flow
+- Optional: Codex CLI, if you want to use `auth import-codex` or run the live certification scripts
 
 Install repo dependencies:
 
@@ -18,23 +19,9 @@ Install repo dependencies:
 bun install
 ```
 
-### 2. Sign in with Codex
+### 2. Sign in to Klaudia
 
-Klaudia does not authenticate directly against ChatGPT. Instead, it imports your Codex login from `~/.codex/auth.json` into Klaudia's own auth store.
-
-If you have not signed into Codex yet:
-
-```bash
-codex login
-```
-
-Optional verification:
-
-```bash
-codex login status
-```
-
-### 3. Import Codex auth into Klaudia
+Klaudia now authenticates directly against ChatGPT/Codex through a local browser flow and stores fresh credentials in `~/.klaudia/auth.json`.
 
 Run this from the repo root:
 
@@ -42,20 +29,29 @@ Run this from the repo root:
 bun run cli:source -- auth login
 ```
 
-This imports your Codex credentials into Klaudia's local auth file under `~/.klaudia/auth.json`.
-
-You usually need to do this:
-
-- the first time you run Klaudia
-- after refreshing or changing your Codex login
-- if Klaudia says `Not logged in`
-- if `/model` only shows the fallback model set such as `gpt-5.2-codex`
+This opens the browser, completes the ChatGPT/Codex sign-in flow, and persists Klaudia's own auth state locally.
 
 Optional verification:
 
 ```bash
 bun run cli:source -- auth status --json
 ```
+
+### 3. Optional: import an existing Codex login
+
+If you already have a fresh Codex auth file and want to seed Klaudia from it instead of using the browser flow, you can import it explicitly:
+
+```bash
+bun run cli:source -- auth import-codex
+```
+
+This copies `~/.codex/auth.json` into Klaudia's auth store and immediately validates it.
+
+This path is mainly useful for:
+
+- disposable-home testing
+- live certification scripts
+- cases where you explicitly want to bootstrap from an existing Codex login
 
 ### 4. Run Klaudia from source
 
@@ -73,7 +69,7 @@ bun run cli:source -- --version
 bun run cli:source -- --no-env --help
 ```
 
-`--no-env` clears ambient provider credentials so you can verify the Codex-backed path without Anthropic, Bedrock, Vertex, or other env vars interfering.
+`--no-env` clears ambient provider credentials so you can verify the ChatGPT/Codex-backed path without Anthropic, Bedrock, Vertex, or other env vars interfering.
 
 ## Fast Iteration
 
@@ -148,7 +144,7 @@ bun test
 
 ### OpenAI / Codex provider boundary
 
-Use this when changing auth import, model catalog, transport, or mocked OpenAI runtime behavior:
+Use this when changing auth, auth import, model catalog, transport, or mocked OpenAI runtime behavior:
 
 ```bash
 bun run verify:openai-transport
@@ -192,7 +188,7 @@ KLAUDIA_ENABLE_OPENAI_LIVE=1 npm run verify:openai-live
 KLAUDIA_ENABLE_OPENAI_LIVE=1 npm run verify:openai-live-interactive
 ```
 
-The live scripts copy a Codex `auth.json` into a disposable home, run Klaudia auth import inside that disposable environment, and then validate the live `/models` and runtime paths.
+The live scripts copy a Codex `auth.json` into a disposable home, run `klaudia auth import-codex` inside that disposable environment, and then validate the live `/models` and runtime paths.
 
 See [docs/testing/openai-live.md](./docs/testing/openai-live.md) for the full runbook.
 
@@ -223,7 +219,7 @@ Under the hood, `bun run cli:source` invokes the CLI entrypoint at [`src/entrypo
 
 ### `/model` only shows `gpt-5.2-codex`
 
-That usually means Klaudia is still on the fallback catalog because Codex auth has not been imported yet.
+That usually means Klaudia is still on the fallback catalog because Klaudia is not signed in yet.
 
 Run:
 
@@ -235,16 +231,17 @@ Then restart Klaudia and open `/model` again.
 
 ### Klaudia says `Not logged in`
 
-First verify Codex itself is signed in:
-
-```bash
-codex login status
-```
-
-Then re-import into Klaudia:
+Run the native browser login flow again:
 
 ```bash
 bun run cli:source -- auth login
+```
+
+If you are intentionally using the import path instead, first refresh Codex and then re-import:
+
+```bash
+codex login
+bun run cli:source -- auth import-codex
 ```
 
 ### Legacy provider env vars are interfering
@@ -290,7 +287,6 @@ If you only need the shortest path:
 
 ```bash
 bun install
-codex login
 bun run cli:source -- auth login
 bun run cli:source
 ```
