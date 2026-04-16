@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Local auth and CLI state
+.klaudia/
+.codex/
+-/.codex/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Coverage and test artifacts
+.coverage/
+.coverage-bun/
+coverage/
+
+# Logs and temporary files
+*.log
+*.pid
+*.pid.lock
+tmp/
+.tmp/
+
+# Local package archives
+anthropic-ai-claude-agent-sdk-*.tgz
+
+# OS files
+.DS_Store
