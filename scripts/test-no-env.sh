@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -e
+
+KLAUDIA_CONFIG_DIR=${KLAUDIA_CONFIG_DIR:-"$HOME/.klaudia"}
+CODEX_HOME=${CODEX_HOME:-"$HOME/.codex"}
+
+CLAUDE_AUTH_FILE="$KLAUDIA_CONFIG_DIR/auth.json"
+CODEX_AUTH_FILE="$CODEX_HOME/auth.json"
+
+CLAUDE_AUTH_BACKUP="$CLAUDE_AUTH_FILE.bak"
+CODEX_AUTH_BACKUP="$CODEX_AUTH_FILE.bak"
+
+cleanup() {
+  if [[ -f "$CLAUDE_AUTH_BACKUP" ]]; then
+    mv "$CLAUDE_AUTH_BACKUP" "$CLAUDE_AUTH_FILE"
+    echo "Restored claude auth.json"
+  fi
+
+  if [[ -f "$CODEX_AUTH_BACKUP" ]]; then
+    mv "$CODEX_AUTH_BACKUP" "$CODEX_AUTH_FILE"
+    echo "Restored codex auth.json"
+  fi
+}
+trap cleanup EXIT
+
+if [[ -f "$CLAUDE_AUTH_FILE" ]]; then
+  mv "$CLAUDE_AUTH_FILE" "$CLAUDE_AUTH_BACKUP"
+  echo "Moved claude auth.json to backup"
+fi
+
+if [[ -f "$CODEX_AUTH_FILE" ]]; then
+  mv "$CODEX_AUTH_FILE" "$CODEX_AUTH_BACKUP"
+  echo "Moved codex auth.json to backup"
+fi
+
+unset ANTHROPIC_API_KEY
+unset ANTHROPIC_AUTH_TOKEN
+unset ANTHROPIC_OAUTH_TOKEN
+unset ANTHROPIC_BASE_URL
+unset OPENAI_API_KEY
+unset OPENAI_BASE_URL
+unset GEMINI_API_KEY
+unset GROQ_API_KEY
+unset CEREBRAS_API_KEY
+unset XAI_API_KEY
+unset OPENROUTER_API_KEY
+unset ZAI_API_KEY
+unset MISTRAL_API_KEY
+unset MINIMAX_API_KEY
+unset MINIMAX_CN_API_KEY
+unset KIMI_API_KEY
+unset HF_TOKEN
+unset AI_GATEWAY_API_KEY
+unset OPENCODE_API_KEY
+unset COPILOT_GITHUB_TOKEN
+unset GH_TOKEN
+unset GITHUB_TOKEN
+unset GOOGLE_APPLICATION_CREDENTIALS
+unset GOOGLE_CLOUD_PROJECT
+unset GCLOUD_PROJECT
+unset GOOGLE_CLOUD_LOCATION
+unset AWS_PROFILE
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_SESSION_TOKEN
+unset AWS_REGION
+unset AWS_DEFAULT_REGION
+unset AWS_BEARER_TOKEN_BEDROCK
+unset AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+unset AWS_CONTAINER_CREDENTIALS_FULL_URI
+unset AWS_WEB_IDENTITY_TOKEN_FILE
+unset CLAUDE_CODE_USE_BEDROCK
+unset CLAUDE_CODE_USE_VERTEX
+unset CLAUDE_CODE_USE_FOUNDRY
+
+echo "Running tests without API keys..."
+npm test

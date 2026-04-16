@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/provider/providerSession.ts",
+    "src/utils/model/providers.ts",
+    "test/preload.ts",
+    "test/provider/**/*.ts",
+    "test/support/**/*.ts"
+  ]
+}

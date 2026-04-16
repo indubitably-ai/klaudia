@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2023"],
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "types": ["bun"],
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "strict": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*.d.ts",
+    "src/provider/providerSession.ts",
+    "src/services/mcp/config.ts",
+    "src/services/mcp/envExpansion.ts",
+    "src/tools/BashTool/bashPermissions.ts",
+    "src/tools/BashTool/pathValidation.ts",
+    "src/tools/BashTool/sedValidation.ts",
+    "src/utils/frontmatterParser.ts",
+    "src/utils/shellConfig.ts",
+    "src/utils/xdg.ts",
+    "src/utils/model/providers.ts",
+    "src/utils/settings/changeDetector.ts",
+    "src/utils/settings/internalWrites.ts",
+    "src/utils/settings/managedPath.ts",
+    "src/utils/settings/settingsCache.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": ["node_modules", "stubs"]
+}

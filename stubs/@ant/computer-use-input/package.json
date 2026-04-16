@@ -1,0 +1,6 @@
+{
+  "name": "@ant/computer-use-input",
+  "version": "0.0.0-public-safe",
+  "private": true,
+  "main": "./index.cjs"
+}
