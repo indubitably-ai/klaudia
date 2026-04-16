@@ -3,7 +3,7 @@
  *
  * Registers the `claude-cli://` custom URI scheme with the OS,
  * so that clicking a `claude-cli://` link in a browser (or any app) will
- * invoke `claude --handle-uri <url>`.
+ * invoke `klaudia --handle-uri <url>`.
  *
  * Platform details:
  *   macOS  — Creates a minimal .app trampoline in ~/Applications with

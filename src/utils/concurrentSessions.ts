@@ -23,7 +23,7 @@ function getSessionsDir(): string {
 }
 
 /**
- * Kind override from env. Set by the spawner (`claude --bg`, daemon
+ * Kind override from env. Set by the spawner (`klaudia --bg`, daemon
  * supervisor) so the child can register without the parent having to
  * write the file for it — cleanup-on-exit wiring then works for free.
  * Gated so the env-var string is DCE'd from external builds.
@@ -37,7 +37,7 @@ function envSessionKind(): SessionKind | undefined {
 }
 
 /**
- * True when this REPL is running inside a `claude --bg` tmux session.
+ * True when this REPL is running inside a `klaudia --bg` tmux session.
  * Exit paths (/exit, ctrl+c, ctrl+d) should detach the attached client
  * instead of killing the process.
  */
