@@ -1,11 +1,11 @@
 /**
  * Protocol Handler
  *
- * Entry point for `claude --handle-uri <url>`. When the OS invokes claude
+ * Entry point for `klaudia --handle-uri <url>`. When the OS invokes klaudia
  * with a `claude-cli://` URL, this module:
  *   1. Parses the URI into a structured action
  *   2. Detects the user's terminal emulator
- *   3. Opens a new terminal window running claude with the appropriate args
+ *   3. Opens a new terminal window running klaudia with the appropriate args
  *
  * This runs in a headless context (no TTY) because the OS launches the binary
  * directly — there is no terminal attached.
