@@ -1,8 +1,24 @@
 # Klaudia CLI
 
-Public-safe Klaudia CLI source tree and Bun-first harness for the INDUBITABLY.AI fork.
+## Checklist
 
-This fork is optimized for running Klaudia from source, iterating on the CLI quickly, and validating changes through a local-first test harness.
+- [x] Shared Klaudia Repository to X Followers
+- [ ] Did we piss off the lawyers at Anthropic yet?
+- [ ] DMCA takedown from Github
+
+Run Claude Code with your ChatGPT Pro / Codex subscription.
+
+This repository is a GPT-model harness for Claude Code: it lets you run the Claude Code CLI against ChatGPT/Codex auth, use GPT models through the provider boundary, and iterate locally from source.
+
+Use it when you want the Claude Code experience with ChatGPT Pro / Codex-backed authentication and GPT models instead of the default provider path.
+
+If you want the live timer version, open [docs/stopwatch.html](./docs/stopwatch.html). It now counts from a fixed global launch timestamp instead of page load.
+
+## Disclaimer
+
+This repository includes built-in skills, tools, and automation surfaces that are under active development. They are provided without any guarantee of correctness, completeness, stability, or fitness for a particular purpose.
+
+Use the skills and related automation at your own risk. Behavior may be incomplete, may change without notice, and may require operator judgment before use.
 
 ## Quick Start
 
@@ -70,6 +86,12 @@ bun run cli:source -- --no-env --help
 ```
 
 `--no-env` clears ambient provider credentials so you can verify the ChatGPT/Codex-backed path without Anthropic, Bedrock, Vertex, or other env vars interfering.
+
+## Contributing
+
+We welcome contributions.
+
+Before opening a PR, start with the smallest relevant validation for your change and then scale up as needed. The repo's default verification flow lives in [AGENTS.md](./AGENTS.md), and the broader architecture and testing references are in [ARCHITECTURE.md](./ARCHITECTURE.md), [docs/testing/harness.md](./docs/testing/harness.md), and [docs/testing/openai-live.md](./docs/testing/openai-live.md).
 
 ## Fast Iteration
 
