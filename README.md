@@ -12,7 +12,7 @@ This repository is a GPT-model harness for Claude Code: it lets you run the Clau
 
 Use it when you want the Claude Code experience with ChatGPT Pro / Codex-backed authentication and GPT models instead of the default provider path.
 
-If you want the live timer version, open [docs/stopwatch.html](./docs/stopwatch.html). It now counts from a fixed global launch timestamp instead of page load.
+If you want the live timer version, open [docs/stopwatch.html](./docs/stopwatch.html). It now counts from a fixed global launch timestamp instead of page load. Once GitHub Pages is enabled for this repo, the hosted version will be available from the Pages site root and `/stopwatch.html`.
 
 ## Disclaimer
 
